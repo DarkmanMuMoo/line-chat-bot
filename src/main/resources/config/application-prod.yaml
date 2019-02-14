@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    active: prod
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/todo
+    username: todo
+    password: 123pos
+    driver-class: org.postgresql.Driver
+
+

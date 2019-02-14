@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-db
+  labels:
+    app: line
+    tier: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+       line-bot: todo-db
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        line-bot: todo-db
+    spec:
+      containers:
+        - env:
+            - name: MYSQL_DATABASE
+              value: todo
+            - name: MYSQL_PASSWORD
+              value: "1234"
+            - name: MYSQL_ROOT_PASSWORD
+              value: admin
+            - name: MYSQL_USER
+              value: todo
+          image: mysql:5.7
+          name: todo-db
+          ports:
+            - containerPort: 3306
+          resources: {}
+      restartPolicy: Always
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    line: todo-db
+  name: todo-db
+spec:
+  ports:
+    - name: "3306"
+      port: 3306
+      targetPort: 3306
+  selector:
+    line-bot: todo-db
+status:
+  loadBalancer: {}
+

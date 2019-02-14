@@ -1,0 +1,23 @@
+logging:
+  level:
+    root: INFO
+    org.flywaydb: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.web.context: INFO
+    org.springframework.web.servlet.handler: TRACE
+    org.springframework.web.servlet.DispatcherServlet: INFO
+    org.springframework.web.servlet.mvc.method.annotation: INFO
+    springfox.documentation: INFO
+line:
+  bot:
+    channelToken: LeWnmp6zIAy0eHCJD7/oCOiobdj5SZNsyRvWzWo+FmlsxKQtY4NCS0bL9p4rRi3zzN5zq0Kbns2zHlRKznGd6ySsik5ujmytq9Gq90RKuvN9sbfZP0hWHhV6R1Iloz1BNYOUo23596JfOVp32vJLJwdB04t89/1O/w1cDnyilFU=
+    channelSecret: 23a8f476fd2111b9920d2a7b66d14118
+    handler:
+      path: /webhook
+spring:
+  h2:
+    console:
+      enabled: true
+
+flyway:
+  locations: classpath:db/migration
