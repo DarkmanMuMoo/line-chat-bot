@@ -18,6 +18,27 @@ spring:
   h2:
     console:
       enabled: true
+  security:
+    oauth2:
+      client:
+        registration:
+          line:
+            client-id: 1646673985
+            client-secret: 9adfb27494d135f5732482cb348e4332
+            clientName: line
+            authorization-grant-type: authorization_code
+            redirectUriTemplate: 'https://6652f693.ngrok.io/login/oauth2/code/{registrationId}'
+            scope: profile
+            client-authentication-method: basic
+        provider:
+          line:
+            authorization-uri: https://access.line.me/oauth2/v2.1/authorize
+            token-uri: https://api.line.me/oauth2/v2.1/token
+            user-info-uri: https://api.line.me/v2/profile
+            user-name-attribute: userId
+
 
 flyway:
   locations: classpath:db/migration
+server:
+  use-forward-headers: true

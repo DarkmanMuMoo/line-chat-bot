@@ -3,13 +3,9 @@ package com.mumoo.controller;
 import com.mumoo.model.Task;
 import com.mumoo.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
-
-import java.time.LocalDateTime;
-import java.util.List;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/todo")
@@ -26,6 +22,13 @@ public class TodoController {
     public Flux<Task> getTaskListForUser() {
         return service.getTaskListForUser(1L);
     }
+
+    @PatchMapping("{id}")
+    public Mono<Task> markDone(@PathVariable Long id) throws Exception {
+
+        return service.markDone(id,null);
+    }
+
 
 }
 

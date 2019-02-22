@@ -2,12 +2,13 @@ package com.mumoo.util;
 
 
 import com.mumoo.model.Task;
+import com.mumoo.model.User;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 public class TodoUtil {
     public static final String DEFAULT_TIME = "12:00";
@@ -36,6 +37,20 @@ public class TodoUtil {
         } else {
             return LocalDateTime.of(LocalDate.parse(day, dateTimeFormatter), LocalTime.parse(time, timeFormatter));
         }
+    }
+
+
+    public static void authorizeTask(Optional<Task> taskOptional, User user) throws Exception {
+
+        if(taskOptional.isEmpty()){
+            throw new Exception("user not found");
+        }
+        Task task = taskOptional.get();
+
+        if(!task.getId().equals(user.getId())){
+            throw new Exception("un authorize");
+        }
+
     }
 
 }

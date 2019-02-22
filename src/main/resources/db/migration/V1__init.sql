@@ -12,3 +12,12 @@ CREATE TABLE userInfo(
      lineId VARCHAR (250) NOT NULL,
      created timestamp NOT NULL
 );
+
+CREATE TABLE userToken(
+
+     token  VARCHAR(100) NOT NULL,
+     created timestamp NOT NULL,
+     expire_at timestamp NOT NULL,
+     user_id BIGINT NOT NULL
+
+)

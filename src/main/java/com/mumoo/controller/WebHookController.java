@@ -8,6 +8,7 @@ import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 import com.mumoo.Application;
 import com.mumoo.model.User;
+import com.mumoo.service.AuthenticationService;
 import com.mumoo.service.TodoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,19 +20,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class WebHookController {
 
     private TodoService todoService;
+    private AuthenticationService authenticationService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
     @Autowired
-    public WebHookController(TodoService todoService) {
+    public WebHookController(TodoService todoService,AuthenticationService authenticationService) {
         this.todoService = todoService;
+        this.authenticationService = authenticationService;
     }
 
     @EventMapping
     public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
 
         try{
-            User sender = todoService.getUserFromLineID(event.getSource().getUserId()).block();
+            User sender = authenticationService.getOrCreateUserFromLineID(event.getSource().getUserId()).block();
             String  command = event.getMessage().getText();
             String replyMsg = "hi";
             todoService.createTaskFromTextCommand(command,sender.getId());
