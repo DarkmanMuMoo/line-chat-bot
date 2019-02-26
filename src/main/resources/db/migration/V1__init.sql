@@ -15,7 +15,7 @@ CREATE TABLE userInfo(
 
 CREATE TABLE userToken(
 
-     token  VARCHAR(100) NOT NULL,
+     token  VARCHAR(500) NOT NULL,
      created timestamp NOT NULL,
      expire_at timestamp NOT NULL,
      user_id BIGINT NOT NULL
