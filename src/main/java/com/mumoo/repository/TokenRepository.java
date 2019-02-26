@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface TokenRepository extends CrudRepository<Token, Long> {
-    @Query("select * from userToken where userId = :userId")
+public interface TokenRepository extends CrudRepository<Token, String> {
+    @Query("select * from usertoken where userId = :userId")
     List<Token> findByUserId(@Param("userId") String userId);
 }

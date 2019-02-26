@@ -1,12 +1,15 @@
 package com.mumoo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
 
-@Table("userToken")
-public class Token {
+@Table("usertoken")
+public class Token  implements Persistable<String> {
     @Id
     private String token;
 
@@ -16,6 +19,29 @@ public class Token {
 
     private Long userId;
 
+    @Transient
+    @JsonIgnore
+    private boolean newEntity;
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @JsonIgnore
+    public String getId() {
+        return token;
+    }
+
+    @Override
+    public boolean isNew() {
+        return newEntity;
+    }
+
+
+    public void setNewEntity(boolean newEntity) {
+        this.newEntity = newEntity;
+    }
 
     public  Token(){
 

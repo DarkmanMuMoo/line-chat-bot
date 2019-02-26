@@ -57,11 +57,11 @@ public class AuthenticationService {
                 .build();
         SignedJWT jwt  = TodoUtil.createJwtToken( claimsSet,this.secret);
         Token token = new Token(jwt.serialize(),created,created.plusDays(7),userId);
-
+       token.setNewEntity(true);
         return Mono.just(tokenRepository.save(token));
 
-
     }
+
 
 
 
