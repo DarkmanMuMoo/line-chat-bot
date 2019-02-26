@@ -29,20 +29,20 @@ public class JwtTokenDecoder implements JwtDecoder {
 
     @Override
     public Jwt decode(String token) throws JwtException {
-            try {
+        try {
 
-               boolean isExist =  tokenRepository.existsById(token);
-               if(!isExist){
-                   throw new JwtException("token not exist");
-               }
-                SignedJWT signedJWT = TodoUtil.parseAndVerifyJwtToken(token,this.secret);
-                JWTClaimsSet claim = signedJWT.getJWTClaimsSet();
-                Map<String, Object> headers = new LinkedHashMap<>(signedJWT.getHeader().toJSONObject());
-                Jwt springJwt = new Jwt(signedJWT.serialize(), claim.getIssueTime().toInstant(), claim.getExpirationTime().toInstant(), headers, claim.getClaims());
-                return springJwt;
-            } catch (ParseException | JOSEException | NoSuchAlgorithmException e) {
-                throw new JwtException(e.getMessage());
+            boolean isExist = tokenRepository.existsById(token);
+            if (!isExist) {
+                throw new JwtException("token not exist");
             }
+            SignedJWT signedJWT = TodoUtil.parseAndVerifyJwtToken(token, this.secret);
+            JWTClaimsSet claim = signedJWT.getJWTClaimsSet();
+            Map<String, Object> headers = new LinkedHashMap<>(signedJWT.getHeader().toJSONObject());
+            Jwt springJwt = new Jwt(signedJWT.serialize(), claim.getIssueTime().toInstant(), claim.getExpirationTime().toInstant(), headers, claim.getClaims());
+            return springJwt;
+        } catch (ParseException | JOSEException | NoSuchAlgorithmException e) {
+            throw new JwtException(e.getMessage());
         }
     }
+}
 

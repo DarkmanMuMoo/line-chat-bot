@@ -9,7 +9,7 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.time.LocalDateTime;
 
 @Table("usertoken")
-public class Token  implements Persistable<String> {
+public class Token implements Persistable<String> {
     @Id
     private String token;
 
@@ -22,6 +22,17 @@ public class Token  implements Persistable<String> {
     @Transient
     @JsonIgnore
     private boolean newEntity;
+
+    public Token() {
+
+    }
+
+    public Token(String token, LocalDateTime created, LocalDateTime expireAt, Long userId) {
+        this.token = token;
+        this.created = created;
+        this.expireAt = expireAt;
+        this.userId = userId;
+    }
 
     @Override
     public int hashCode() {
@@ -38,20 +49,8 @@ public class Token  implements Persistable<String> {
         return newEntity;
     }
 
-
     public void setNewEntity(boolean newEntity) {
         this.newEntity = newEntity;
-    }
-
-    public  Token(){
-
-    }
-
-    public Token(String token, LocalDateTime created, LocalDateTime expireAt, Long userId) {
-        this.token = token;
-        this.created = created;
-        this.expireAt = expireAt;
-        this.userId = userId;
     }
 
     public String getToken() {

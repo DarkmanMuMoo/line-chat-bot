@@ -14,5 +14,4 @@ public interface TaskRepository extends CrudRepository<Task, Long> {
     List<Task> list();
 
 
-
 }

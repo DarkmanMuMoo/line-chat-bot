@@ -9,7 +9,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-       line-bot: todo-db
+      line-bot: todo-db
   template:
     metadata:
       creationTimestamp: null

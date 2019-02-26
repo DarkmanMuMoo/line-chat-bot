@@ -9,9 +9,8 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationFa
 
 @Configuration
 public class WebSecurity extends WebSecurityConfigurerAdapter {
-@Autowired
- private JwtDecoder decoder;
-
+    @Autowired
+    private JwtDecoder decoder;
 
 
     @Override

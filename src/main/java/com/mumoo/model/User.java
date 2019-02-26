@@ -11,9 +11,14 @@ public class User {
     @Id
     private Long id;
     @Column("lineId")
-    private  String lineId;
+    private String lineId;
     private LocalDateTime created;
 
+
+    public User(String lineId, LocalDateTime created) {
+        this.lineId = lineId;
+        this.created = created;
+    }
 
     public Long getId() {
         return id;
@@ -46,10 +51,5 @@ public class User {
                 ", lineId='" + lineId + '\'' +
                 ", created=" + created +
                 '}';
-    }
-
-    public User(String lineId, LocalDateTime created) {
-        this.lineId = lineId;
-        this.created = created;
     }
 }

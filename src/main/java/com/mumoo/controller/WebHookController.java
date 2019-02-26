@@ -15,17 +15,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-
 @LineMessageHandler
 public class WebHookController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
     private TodoService todoService;
     private AuthenticationService authenticationService;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
-
     @Autowired
-    public WebHookController(TodoService todoService,AuthenticationService authenticationService) {
+    public WebHookController(TodoService todoService, AuthenticationService authenticationService) {
         this.todoService = todoService;
         this.authenticationService = authenticationService;
     }
@@ -33,23 +31,23 @@ public class WebHookController {
     @EventMapping
     public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
 
-        try{
+        try {
             User sender = authenticationService.getOrCreateUserFromLineID(event.getSource().getUserId()).block();
-            String  command = event.getMessage().getText();
+            String command = event.getMessage().getText();
             String replyMsg = "hi";
-            todoService.createTaskFromTextCommand(command,sender.getId());
+            todoService.createTaskFromTextCommand(command, sender.getId());
             return new TextMessage(replyMsg);
-        }catch(Exception exception){
-            LOGGER.error("wtf",exception);
+        } catch (Exception exception) {
+            LOGGER.error("wtf", exception);
             return new TextMessage("งง");
         }
 
     }
 
     @EventMapping
-    public void log(FollowEvent event){
+    public void log(FollowEvent event) {
 
-        LOGGER.info("got event "+ event.toString());
+        LOGGER.info("got event " + event.toString());
 
     }
 }

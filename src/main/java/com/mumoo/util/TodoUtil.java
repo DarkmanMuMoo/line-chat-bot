@@ -24,7 +24,7 @@ public class TodoUtil {
     private static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yy");
 
-    public static Task parseMessage(String message,Long userId) {
+    public static Task parseMessage(String message, Long userId) {
 
         String[] chunk = message.split(" : ");
 
@@ -51,12 +51,12 @@ public class TodoUtil {
 
     public static void authorizeTask(Optional<Task> taskOptional, User user) throws Exception {
 
-        if(taskOptional.isEmpty()){
+        if (taskOptional.isEmpty()) {
             throw new Exception("user not found");
         }
         Task task = taskOptional.get();
 
-        if(!task.getId().equals(user.getId())){
+        if (!task.getId().equals(user.getId())) {
             throw new Exception("un authorize");
         }
 
@@ -77,7 +77,7 @@ public class TodoUtil {
     }
 
 
-    public static SignedJWT parseAndVerifyJwtToken(String token,String secret) throws NoSuchAlgorithmException, JOSEException, ParseException {
+    public static SignedJWT parseAndVerifyJwtToken(String token, String secret) throws NoSuchAlgorithmException, JOSEException, ParseException {
 
 
         SignedJWT signedJWT = SignedJWT.parse(token);
@@ -87,7 +87,7 @@ public class TodoUtil {
         JWSVerifier verifier = new MACVerifier(sharedSecret);
         signedJWT.verify(verifier);
 
-        return  signedJWT;
+        return signedJWT;
 
     }
 

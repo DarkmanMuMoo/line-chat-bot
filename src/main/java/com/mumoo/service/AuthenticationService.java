@@ -33,20 +33,19 @@ public class AuthenticationService {
     }
 
 
+    public Mono<User> getOrCreateUserFromLineID(String lineId) {
 
-    public Mono<User> getOrCreateUserFromLineID(String lineId){
-
-        Optional<User> user =   this.userRepository.getByLineId(lineId);
-        if(user.isEmpty()){
-            return   Mono.just(this.userRepository.save(new User(lineId, LocalDateTime.now())));
+        Optional<User> user = this.userRepository.getByLineId(lineId);
+        if (user.isEmpty()) {
+            return Mono.just(this.userRepository.save(new User(lineId, LocalDateTime.now())));
         }
 
-        return  Mono.just(user.get());
+        return Mono.just(user.get());
 
     }
 
     public Mono<Token> login(Long userId) throws NoSuchAlgorithmException, JOSEException {
-        LocalDateTime created  = LocalDateTime.now();
+        LocalDateTime created = LocalDateTime.now();
 
         JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
                 .subject(userId.toString())
@@ -55,14 +54,12 @@ public class AuthenticationService {
                 .audience("todo")
                 .issueTime(Date.from(created.toInstant(ZoneOffset.UTC)))
                 .build();
-        SignedJWT jwt  = TodoUtil.createJwtToken( claimsSet,this.secret);
-        Token token = new Token(jwt.serialize(),created,created.plusDays(7),userId);
-       token.setNewEntity(true);
+        SignedJWT jwt = TodoUtil.createJwtToken(claimsSet, this.secret);
+        Token token = new Token(jwt.serialize(), created, created.plusDays(7), userId);
+        token.setNewEntity(true);
         return Mono.just(tokenRepository.save(token));
 
     }
-
-
 
 
 }

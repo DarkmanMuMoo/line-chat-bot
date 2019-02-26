@@ -19,9 +19,9 @@ import java.security.NoSuchAlgorithmException;
 public class LineLoginController {
 
 
-     private AuthenticationService authenticationService;
+    private AuthenticationService authenticationService;
 
-   @Autowired
+    @Autowired
     public LineLoginController(AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
     }
@@ -29,10 +29,10 @@ public class LineLoginController {
     // this still not met standard
     @GetMapping(value = "/line-login")
     public Mono<Token> index(
-                        @RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient,
-                        @AuthenticationPrincipal OAuth2User oauth2User) throws NoSuchAlgorithmException, JOSEException {
-       String lineId = (String) oauth2User.getAttributes().get("userId");
-       User user = authenticationService.getOrCreateUserFromLineID(lineId).block();
-       return authenticationService.login(user.getId());
+            @RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient,
+            @AuthenticationPrincipal OAuth2User oauth2User) throws NoSuchAlgorithmException, JOSEException {
+        String lineId = (String) oauth2User.getAttributes().get("userId");
+        User user = authenticationService.getOrCreateUserFromLineID(lineId).block();
+        return authenticationService.login(user.getId());
     }
 }

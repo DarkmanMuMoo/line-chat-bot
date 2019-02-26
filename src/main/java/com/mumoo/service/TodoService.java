@@ -25,49 +25,49 @@ public class TodoService {
     private UserRepository userRepository;
 
     @Autowired
-    public TodoService(TaskRepository taskRepository,UserRepository userRepository) {
+    public TodoService(TaskRepository taskRepository, UserRepository userRepository) {
         this.taskRepository = taskRepository;
         this.userRepository = userRepository;
     }
 
-    public Flux<Task> getTaskListForUser(Long userid){
+    public Flux<Task> getTaskListForUser(Long userid) {
 
-        return  Flux.fromIterable(this.taskRepository.list());
+        return Flux.fromIterable(this.taskRepository.list());
 
     }
 
 
-    public Mono<Task> createTaskFromTextCommand(String command ,Long userId){
+    public Mono<Task> createTaskFromTextCommand(String command, Long userId) {
 
-       Task task =  TodoUtil.parseMessage(command,userId);
-       LOGGER.info("got task"+ task);
+        Task task = TodoUtil.parseMessage(command, userId);
+        LOGGER.info("got task" + task);
 
-      return Mono.just(taskRepository.save(task));
+        return Mono.just(taskRepository.save(task));
     }
 
-    public Mono<Task> markDone(Long taskId,User user) throws Exception {
+    public Mono<Task> markDone(Long taskId, User user) throws Exception {
 
         Optional<Task> task = taskRepository.findById(taskId);
 
-        TodoUtil.authorizeTask(task,user);
+        TodoUtil.authorizeTask(task, user);
 
         Task updateTask = task.get();
 
         updateTask.setDone(true);
 
-       return  Mono.just(taskRepository.save(updateTask));
+        return Mono.just(taskRepository.save(updateTask));
 
     }
 
-    public Mono<Task> markImportant(Long taskId,User user) throws Exception {
+    public Mono<Task> markImportant(Long taskId, User user) throws Exception {
         Optional<Task> task = taskRepository.findById(taskId);
-        TodoUtil.authorizeTask(task,user);
+        TodoUtil.authorizeTask(task, user);
 
         Task updateTask = task.get();
 
         updateTask.setImportant(true);
 
-        return  Mono.just(taskRepository.save(updateTask));
+        return Mono.just(taskRepository.save(updateTask));
 
     }
 

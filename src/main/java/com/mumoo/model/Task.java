@@ -13,6 +13,18 @@ public class Task {
     private Boolean important;
     private Long userId;
 
+    public Task() {
+    }
+
+    public Task(Long id, String title, LocalDateTime created, Boolean done, Boolean important, Long userId) {
+        this.id = id;
+        this.title = title;
+        this.created = created;
+        this.done = done;
+        this.important = important;
+        this.userId = userId;
+    }
+
     public Boolean isDone() {
         return done;
     }
@@ -58,18 +70,6 @@ public class Task {
     }
 
     public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Task() {
-    }
-
-    public Task(Long id, String title, LocalDateTime created, Boolean done, Boolean important, Long userId) {
-        this.id = id;
-        this.title = title;
-        this.created = created;
-        this.done = done;
-        this.important = important;
         this.userId = userId;
     }
 
