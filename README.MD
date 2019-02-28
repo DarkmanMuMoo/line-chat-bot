@@ -45,4 +45,8 @@ Exception translate
 
 Implement  Oauth token response
 
+JWT secret key should be userId
+
+Integration Test
+
 
